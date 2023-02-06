@@ -1,5 +1,14 @@
-import { Controller, Get, Post, Res, HttpStatus, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Res,
+  HttpStatus,
+  Param,
+  Body,
+} from '@nestjs/common';
 import { Response } from 'express';
+import { UserDto } from '../dtos/user.dto';
 
 @Controller('user')
 export class UserController {
@@ -22,7 +31,9 @@ export class UserController {
   }
 
   @Post('addUser')
-  addUser() {
-    return 'This function will add the user';
+  addUser(@Body() userInformation: UserDto, @Res() response: Response) {
+    return response.status(HttpStatus.OK).send({
+      userInformation,
+    });
   }
 }
